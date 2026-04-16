@@ -63,6 +63,9 @@ SQLite por defecto en `./data/mastersound.db`.
 ## Configuración
 Copiar `.env.example` a `.env` y ajustar valores.
 
+## Datos de inventario
+El proyecto no incluye un archivo CSV de inventario inicial. Se debe crear `data/inventory.csv` con los campos: `id, name, description, category, brand, model, price, stock, status`.
+
 ## Contribución
 1. Crear rama feature/
 2. Hacer commit de cambios
