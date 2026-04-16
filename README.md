@@ -1,4 +1,6 @@
-# MasterSound
+# Mastersound
+
+Este repositorio contiene el proyecto Mastersound.
 
 ## Descripción
 MasterSound es un sistema de gestión para una tienda de electrónica que maneja:
@@ -46,12 +48,10 @@ mastersound/
 - [ ] Autenticación (opcional)
 
 ## Cómo ejecutar
-
 ### Instalación
 ```bash
 pip install -r requirements.txt
 ```
-
 ### Ejecución
 ```bash
 uvicorn src.main:app --reload
@@ -74,3 +74,6 @@ El proyecto no incluye un archivo CSV de inventario inicial. Se debe crear `data
 ## Notas
 - Proyectos en `/home/canfron/proyectos/repos/mastersound/`
 - Estado actual: recuperación de sesión corrompida
+
+## Todo
+Ver `Todo.md` para la lista de características planificadas.
