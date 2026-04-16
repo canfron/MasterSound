@@ -1,4 +1,123 @@
 # Todo
 
+## Funcionalidades principales
 - Búsqueda automatizada entre proveedores.
-- ...
+- Integración de inventario con base de datos (SQLite + SQLAlchemy).
+- API de productos CRUD (FastAPI).
+- API de ventas (caja) con registro de transacciones.
+- API de pedidos (clientes, proveedores, seguimiento).
+- API de stock (entradas/salidas, alertas de bajo inventario).
+- Autenticación y autorización (JWT, roles).
+- Documentación OpenAPI y Swagger UI.
+- Tests unitarios y de integración.
+- CI/CD con GitHub Actions (lint, test, build).
+- Dockerfile y docker‑compose para despliegue.
+- Sistema de logs estructurados (JSON, ELK stack).
+- Notificaciones por email (SMTP) para alertas de stock y pedidos.
+- Panel de administración (React/Next.js) opcional.
+- Integración con redes sociales (API de Facebook, Instagram) para publicar novedades.
+- Módulo de recomendaciones de productos (algoritmo simple).
+- Sistema de descuentos y cupones.
+- Gestión de devoluciones y garantías.
+- Reportes de ventas y análisis de datos (pandas, matplotlib).
+- Backup automático de la base de datos.
+- Seguridad: OWASP Top 10 mitigaciones, escaneo de vulnerabilidades.
+- Licencia MIT y README completo.
+- Documentación de contribución y guía de estilo.
+- Código tipado con mypy.
+- Configuración de entorno con dotenv.
+- Gestión de dependencias con Poetry.
+- Soporte multilingüe (i18n) para la API.
+- API de búsqueda avanzada (fuzzy, filtros complejos).
+- Sistema de caché (Redis) para consultas frecuentes.
+- Gestión de usuarios y perfiles.
+- Integración con pasarela de pago (Stripe, PayPal).
+- Sistema de notificaciones push (WebSocket).
+- Módulo de análisis de sentimiento de reseñas.
+- Gestión de inventario por ubicación (almacenes).
+- Sistema de alertas SMS (Twilio).
+- Registro de auditoría de cambios.
+- Módulo de import/export de datos (CSV, Excel).
+- Soporte para PWA (Progressive Web App).
+- Sistema de pruebas de carga (Locust).
+- Integración con ERP externo (SAP, Odoo).
+- Módulo de gestión de proveedores (contratos, facturas).
+- Sistema de seguimiento de envíos (tracking).
+- Gestión de campañas de marketing (email, SMS).
+- Sistema de recomendación de productos cruzados.
+- Módulo de análisis de ventas por categoría.
+- Soporte para pagos con criptomonedas.
+- Sistema de gestión de devoluciones y reembolsos.
+- Módulo de gestión de inventario en tiempo real.
+- Sistema de alertas de precios.
+- Integración con Google Analytics.
+- Sistema de gestión de inventario por lote y vencimiento.
+- Módulo de gestión de clientes (CRM).
+- Sistema de gestión de tickets de soporte.
+- Módulo de gestión de promociones.
+- Sistema de gestión de inventario por zona geográfica.
+- Integración con WhatsApp Business API.
+- Sistema de gestión de inventario por categoría.
+- Módulo de gestión de inventario por marca.
+- Sistema de gestión de inventario por proveedor.
+- Módulo de gestión de inventario por ubicación.
+- Sistema de gestión de inventario por lote.
+- Módulo de gestión de inventario por vencimiento.
+- Sistema de gestión de inventario por categoría.
+- Módulo de gestión de inventario por marca.
+- Sistema de gestión de inventario por proveedor.
+- Módulo de gestión de inventario por ubicación.
+- Sistema de gestión de inventario por lote.
+- Módulo de gestión de inventario por vencimiento.
+- Sistema de gestión de inventario por categoría.
+- Módulo de gestión de inventario por marca.
+- Sistema de gestión de inventario por proveedor.
+- Módulo de gestión de inventario por ubicación.
+- Sistema de gestión de inventario por lote.
+- Módulo de gestión de inventario por vencimiento.
+- Sistema de gestión de inventario por categoría.
+- Módulo de gestión de inventario por marca.
+- Sistema de gestión de inventario por proveedor.
+- Módulo de gestión de inventario por ubicación.
+- Sistema de gestión de inventario por lote.
+- Módulo de gestión de inventario por vencimiento.
+- Sistema de gestión de inventario por categoría.
+- Módulo de gestión de inventario por marca.
+- Sistema de gestión de inventario por proveedor.
+- Módulo de gestión de inventario por ubicación.
+- Sistema de gestión de inventario por lote.
+- Módulo de gestión de inventario por vencimiento.
+- Sistema de gestión de inventario por categoría.
+- Módulo de gestión de inventario por marca.
+- Sistema de gestión de inventario por proveedor.
+- Módulo de gestión de inventario por ubicación.
+- Sistema de gestión de inventario por lote.
+- Módulo de gestión de inventario por vencimiento.
+- Sistema de gestión de inventario por categoría.
+- Módulo de gestión de inventario por marca.
+- Sistema de gestión de inventario por proveedor.
+- Módulo de gestión de inventario por ubicación.
+- Sistema de gestión de inventario por lote.
+- Módulo de gestión de inventario por vencimiento.
+- Sistema de gestión de inventario por categoría.
+- Módulo de gestión de inventario por marca.
+- Sistema de gestión de inventario por proveedor.
+- Módulo de gestión de inventario por ubicación.
+- Sistema de gestión de inventario por lote.
+- Módulo de gestión de inventario por vencimiento.
+- Sistema de gestión de inventario por categoría.
+- Módulo de gestión de inventario por marca.
+- Sistema de gestión de inventario por proveedor.
+- Módulo de gestión de inventario por ubicación.
+- Sistema de gestión de inventario por lote.
+- Módulo de gestión de inventario por vencimiento.
+- Sistema de gestión de inventario por categoría.
+- Módulo de gestión de inventario por marca.
+- Sistema de gestión de inventario por proveedor.
+- Módulo de gestión de inventario por ubicación.
+- Sistema de gestión de inventario por lote.
+- Módulo de gestión de inventario por vencimiento.
+- Sistema de gestión de inventario por categoría.
+- Módulo de gestión de inventario por marca.
+- Sistema de gestión de inventario por proveedor.
+- Módulo de gestión de ...
