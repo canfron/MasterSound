@@ -131,6 +131,8 @@
             display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px;
         }
         .panel-title { font-size: 1rem; font-weight: 700; color: var(--gray-900); display: flex; align-items: center; gap: 8px; }
+        .item-count { font-size: 0.75rem; font-weight: 600; color: var(--gray-500); background: var(--gray-100); padding: 2px 8px; border-radius: 10px; margin-left: 4px; }
+        .count-badge { background: var(--primary-bg); color: var(--primary-dark); padding: 3px 10px; border-radius: 14px; font-size: 0.78rem; font-weight: 700; }
         .panel-body { padding: 24px; }
         .panel-body.no-padding { padding: 0; }
 
@@ -191,6 +193,11 @@
             transition: var(--transition); width: 100%;
         }
         .form-input:focus, .form-select:focus, .form-textarea:focus { outline: none; border-color: var(--primary); box-shadow: 0 0 0 3px var(--primary-bg); }
+        .form-input:invalid:not(:placeholder-shown), .form-input[aria-invalid="true"] { border-color: var(--danger); box-shadow: 0 0 0 3px var(--danger-bg); }
+        .form-input.valid:not(:placeholder-shown) { border-color: var(--success); }
+        .form-input.invalid:not(:placeholder-shown) { border-color: var(--danger); box-shadow: 0 0 0 3px var(--danger-bg); }
+        .form-error { font-size: 0.72rem; color: var(--danger); font-weight: 500; min-height: 1rem; }
+        .form-label.error { color: var(--danger); }
         .form-textarea { resize: vertical; min-height: 80px; }
         .form-actions {
             display: flex; gap: 10px; justify-content: flex-end; padding-top: 16px;
@@ -293,6 +300,31 @@
             .form-grid { grid-template-columns: 1fr; }
             .modal { max-width: 100%; margin: 10px; max-height: 95vh; }
             .header-search { display: none; }
+        }
+        @media (max-width: 640px) {
+            .panel-body { display: none; }
+            .panel-body.mobile-cards { display: block !important; }
+            .mobile-card-grid {
+                display: grid; gap: 12px; padding: 12px 16px;
+            }
+            .mobile-card {
+                background: var(--white); border: 1px solid var(--gray-200);
+                border-radius: var(--radius-sm); padding: 14px;
+                box-shadow: var(--shadow-sm);
+            }
+            .mobile-card-header {
+                display: flex; justify-content: space-between; align-items: center;
+                margin-bottom: 8px; padding-bottom: 8px; border-bottom: 1px solid var(--gray-100);
+            }
+            .mobile-card-title { font-weight: 700; font-size: 0.9rem; color: var(--gray-900); }
+            .mobile-card-row {
+                display: flex; justify-content: space-between; padding: 3px 0;
+                font-size: 0.82rem; color: var(--gray-600);
+            }
+            .mobile-card-row .label { font-weight: 600; color: var(--gray-500); }
+            .mobile-card-actions { display: flex; gap: 8px; margin-top: 8px; padding-top: 8px; border-top: 1px solid var(--gray-100); }
+            .mobile-card-actions .btn { flex: 1; justify-content: center; font-size: 0.75rem; padding: 4px 8px; }
+            .mobile-empty { padding: 40px 16px; text-align: center; color: var(--gray-400); font-size: 0.875rem; }
         }
         @media (max-width: 480px) {
             .stats-grid { grid-template-columns: 1fr 1fr; gap: 8px; }
@@ -398,7 +430,7 @@
             <div class="section" id="section-customers">
                 <div class="panel">
                     <div class="panel-header">
-                        <span class="panel-title">👥 Lista de Clientes</span>
+                        <span class="panel-title">👥 Clientes <span class="item-count count-badge" id="customersCount">0</span></span> <button class="btn btn-ghost btn-sm" onclick="exportCSV('customers','Nombre,Email,Teléfono,Dirección')" title="Exportar CSV">📥 CSV</button>
                         <div class="flex flex-wrap gap-2">
                             <div class="filter-bar"><input type="text" class="form-input" id="customerSearch" placeholder="Buscar cliente..."></div>
                             <button class="btn btn-primary" onclick="openModal('customerModal')">➕ Nuevo</button>
@@ -420,7 +452,7 @@
             <div class="section" id="section-invoices">
                 <div class="panel">
                     <div class="panel-header">
-                        <span class="panel-title">🧾 Lista de Facturas</span>
+                        <span class="panel-title">🧾 Facturas <span class="item-count count-badge" id="invoicesCount">0</span></span> <button class="btn btn-ghost btn-sm" onclick="exportCSV('invoices','Nº Cliente,Fecha,Total,Estatus')" title="Exportar CSV">📥 CSV</button>
                         <div class="flex flex-wrap gap-2">
                             <div class="filter-bar">
                                 <select class="form-select" id="invoiceStatusFilter"><option value="">Todos los estados</option><option value="paid">Pagada</option><option value="pending">Pendiente</option></select>
@@ -445,7 +477,7 @@
             <div class="section" id="section-products">
                 <div class="panel">
                     <div class="panel-header">
-                        <span class="panel-title">📦 Lista de Productos</span>
+                        <span class="panel-title">📦 Productos <span class="item-count count-badge" id="productsCount">0</span></span> <button class="btn btn-ghost btn-sm" onclick="exportCSV('products','Código,Nombre,Categoría,Precio,Stock,Estado')" title="Exportar CSV">📥 CSV</button>
                         <div class="flex flex-wrap gap-2">
                             <div class="filter-bar">
                                 <select class="form-select" id="productCategoryFilter"><option value="">Todas las categorías</option></select>
@@ -471,7 +503,7 @@
             <div class="section" id="section-categories">
                 <div class="panel">
                     <div class="panel-header">
-                        <span class="panel-title">🏷️ Lista de Categorías</span>
+                        <span class="panel-title">🏷️ Categorías <span class="item-count count-badge" id="categoriesCount">0</span></span> <button class="btn btn-ghost btn-sm" onclick="exportCSV('categories','Nombre,Descripción')" title="Exportar CSV">📥 CSV</button>
                         <button class="btn btn-primary" onclick="openModal('categoryModal')">➕ Nueva</button>
                     </div>
                     <div class="panel-body no-padding relative">
@@ -490,7 +522,7 @@
             <div class="section" id="section-suppliers">
                 <div class="panel">
                     <div class="panel-header">
-                        <span class="panel-title">🚚 Lista de Proveedores</span>
+                        <span class="panel-title">🚚 Proveedores <span class="item-count count-badge" id="suppliersCount">0</span></span> <button class="btn btn-ghost btn-sm" onclick="exportCSV('suppliers','Nombre,Contacto,Email,Teléfono,Dirección')" title="Exportar CSV">📥 CSV</button>
                         <button class="btn btn-primary" onclick="openModal('supplierModal')">➕ Nuevo</button>
                     </div>
                     <div class="panel-body no-padding relative">
@@ -509,7 +541,7 @@
             <div class="section" id="section-stock">
                 <div class="panel">
                     <div class="panel-header">
-                        <span class="panel-title">📋 Movimientos de Stock</span>
+                        <span class="panel-title">📋 Movimientos <span class="item-count count-badge" id="stockCount">0</span></span> <button class="btn btn-ghost btn-sm" onclick="exportCSV('stock','Producto,Tipo,Cantidad,Referencia,Fecha')" title="Exportar CSV">📥 CSV</button>
                         <button class="btn btn-primary" onclick="openModal('stockModal')">➕ Nuevo Movimiento</button>
                     </div>
                     <div class="panel-body no-padding relative">
@@ -731,35 +763,20 @@
             document.getElementById('stat-products').textContent = stats.total_products;
             document.getElementById('stat-revenue').textContent = formatCurrency(stats.monthly_revenue);
             document.getElementById('stat-lowstock').textContent = stats.low_stock_products;
-
+            document.getElementById('stat-customers-count').textContent = stats.total_customers;
+            document.getElementById('stat-invoices-count').textContent = stats.total_invoices;
+            document.getElementById('stat-products-count').textContent = stats.total_products;
+            document.getElementById('stat-revenue-count').textContent = formatCurrency(stats.monthly_revenue);
+            document.getElementById('stat-lowstock-count').textContent = stats.low_stock_products;
             const recentEl = document.getElementById('recentInvoices');
             if (stats.recent_invoices && stats.recent_invoices.length > 0) {
-                recentEl.innerHTML = stats.recent_invoices.map(inv => `
-                    <div class="recent-item">
-                        <div class="recent-item-info">
-                            <span class="recent-item-number">${inv.invoice_number}</span>
-                            <span class="recent-item-customer">${inv.customer_name || 'N/A'}</span>
-                        </div>
-                        <div class="flex items-center gap-2">
-                            <span class="badge ${inv.status === 'paid' ? 'badge-success' : 'badge-warning'}">${inv.status === 'paid' ? 'Pagada' : 'Pendiente'}</span>
-                            <span class="recent-item-amount">${formatCurrency(inv.total)}</span>
-                        </div>
-                    </div>`).join('');
-            } else {
-                recentEl.innerHTML = '<div class="table-empty"><div class="empty-icon">📭</div><p>Sin facturas</p></div>';
-            }
-
+                recentEl.innerHTML = stats.recent_invoices.map(inv => '<div class="recent-item">' + '<div class="recent-item-info">' + '<span class="recent-item-number">' + inv.invoice_number + '</span>' + '<span class="recent-item-customer">' + (inv.customer_name || 'N/A') + '</span>' + '</div>' + '<div class="flex items-center gap-2">' + '<span class="badge ' + (inv.status === 'paid' ? 'badge-success' : 'badge-warning') + '">' + (inv.status === 'paid' ? 'Pagada' : 'Pendiente') + '</span>' + '<span class="recent-item-amount">' + formatCurrency(inv.total) + '</span>' + '</div></div>').join('');
+            } else { recentEl.innerHTML = '<div class="table-empty"><div class="empty-icon">📭</div><p>Sin facturas</p></div>'; }
             const lowEl = document.getElementById('lowStockList');
             if (stats.low_stock_list && stats.low_stock_list.length > 0) {
-                lowEl.innerHTML = stats.low_stock_list.map(p => `
-                    <div class="low-stock-item">
-                        <span class="low-stock-name">${p.name}</span>
-                        <span class="low-stock-stock">Stock: ${p.stock} / ${p.min_stock}</span>
-                    </div>`).join('');
-            } else {
-                lowEl.innerHTML = '<div class="table-empty"><div class="empty-icon">✅</div><p>Todo en orden</p></div>';
-            }
-        } catch(e) { console.error('Dashboard error:', e); }
+                lowEl.innerHTML = stats.low_stock_list.map(p => '<div class="low-stock-item">' + '<span class="low-stock-name">' + p.name + '</span>' + '<span class="low-stock-stock">Stock: ' + p.stock + ' / ' + p.min_stock + '</span></div>').join('');
+            } else { lowEl.innerHTML = '<div class="table-empty"><div class="empty-icon">✅</div><p>Todo en orden</p></div>'; }
+        } catch(err) { showToast('Error cargando dashboard', 'error'); }
     }
 
     // ── Customers ──
@@ -1028,6 +1045,128 @@
 
     // Initialize
     loadDashboard();
+    // --- CSV Export ---
+    function exportCSV(section, headers) {
+        const tableIds = {
+            customers: 'customersTable',
+            invoices: 'invoicesTable',
+            products: 'productsTable',
+            categories: 'categoriesTable',
+            suppliers: 'suppliersTable',
+            stock: 'stockTable'
+        };
+        const tableId = tableIds[section];
+        if (!tableId) return;
+        const tbody = document.getElementById(tableId);
+        if (!tbody || tbody.rows.length === 0) { showToast('No hay datos para exportar', 'error'); return; }
+        const headerArr = headers.split(',').map(h => h.trim());
+        let csv = headerArr.join(',') + '\n';
+        for (const row of tbody.rows) {
+            const vals = Array.from(row.cells).map(c => {
+                const text = c.textContent.trim().replace(/["\n]/g, ' ');
+                return '"' + text + '"';
+            });
+            csv += vals.join(',') + '\n';
+        }
+        const blob = new Blob([csv], {type: 'text/csv;charset=utf-8;'});
+        const link = document.createElement('a');
+        link.href = URL.createObjectURL(blob);
+        link.download = section + '_' + new Date().toISOString().split('T')[0] + '.csv';
+        link.click();
+        showToast('CSV exportado correctamente');
+    }
+
+    // --- Form validation on blur ---
+    function validateField(input) {
+        if (!input || !input.checkValidity) return;
+        const valid = input.checkValidity() && input.value !== '';
+        input.classList.toggle('form-error', !valid && input.value !== '');
+        input.classList.remove('form-error-valid');
+    }
+    document.querySelectorAll('.form-input[required], .form-select[required]').forEach(input => {
+        input.addEventListener('blur', () => validateField(input));
+        input.addEventListener('input', () => input.classList.remove('form-error'));
+    });
+
+    // --- Keyboard shortcuts ---
+    document.addEventListener('keydown', (e) => {
+        // Ctrl+N = new item in current section
+        if (e.ctrlKey && e.key === 'n') {
+            e.preventDefault();
+            const active = document.querySelector('.nav-item.active');
+            if (!active) return;
+            const section = active.dataset?.section || 'dashboard';
+            const newBtns = {
+                customers: "[onclick*='customerModal']",
+                products: "[onclick*='productModal']",
+                categories: "[onclick*='categoryModal']",
+                suppliers: "[onclick*='supplierModal']",
+                invoices: "[onclick*='InvoiceModal']",
+                stock: "[onclick*='stockModal']"
+            };
+            const sel = newBtns[section];
+            if (sel) document.querySelector(sel)?.click();
+        }
+        // Ctrl+S = focus global search
+        if (e.ctrlKey && e.key === 's' && !e.shiftKey && !e.altKey) {
+            e.preventDefault();
+            const active = document.querySelector('.section.active');
+            const sInput = active ? active.querySelector('[id$="Search"]') : null;
+            if (sInput) sInput.focus();
+        }
+    });
+
+    // --- Dashboard auto-refresh every 2 minutes ---
+    let dashboardTimer = setInterval(() => {
+        const active = document.querySelector('.nav-item.active');
+        if (active && active.dataset?.section === 'dashboard') loadDashboard();
+    }, 120000);
+
+    // --- Online/offline status ---
+    function updateConnectionStatus() {
+        const el = document.getElementById('connectionStatus');
+        if (!el) return;
+        if (navigator.onLine) {
+            el.className = 'count-badge badge-success';
+            el.textContent = '\u25cf Online';
+        } else {
+            el.className = 'count-badge badge-danger';
+            el.textContent = '\u25cf Offline';
+        }
+    }
+    window.addEventListener('online', updateConnectionStatus);
+    window.addEventListener('offline', updateConnectionStatus);
+    updateConnectionStatus();
+
+    // --- Auto-update item counts after load ---
+    const origLoadSection = window.loadSectionData || null;
+    window.loadSectionData = function(section) {
+        if (origLoadSection) origLoadSection(section);
+        setTimeout(() => {
+            const counters = {
+                customers: 'customersCount',
+                invoices: 'invoicesCount',
+                products: 'productsCount',
+                categories: 'categoriesCount',
+                suppliers: 'suppliersCount',
+                stock: 'stockCount'
+            };
+            const tableIds = {
+                customers: 'customersTable',
+                invoices: 'invoicesTable',
+                products: 'productsTable',
+                categories: 'categoriesTable',
+                suppliers: 'suppliersTable',
+                stock: 'stockTable'
+            };
+            const id = counters[section];
+            const tid = tableIds[section];
+            if (id && tid) {
+                const count = document.getElementById(tid)?.rows?.length || 0;
+                document.getElementById(id).textContent = count;
+            }
+        }, 100);
+    };
     </script>
 </body>
 </html>
