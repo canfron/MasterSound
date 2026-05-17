@@ -29,13 +29,24 @@ MasterSound/
 ## Instalación
 
 ```bash
-pip install -r requirements.txt
+python3 -m venv .venv
+source .venv/bin/activate
+python -m pip install -r requirements.txt
 ```
 
 ## Ejecución
 
 ```bash
+source .venv/bin/activate
 python src/main.py
+```
+
+## Tests
+
+```bash
+source .venv/bin/activate
+python -m pip install -r requirements-dev.txt
+python -m pytest
 ```
 
 API disponible en: `http://localhost:8000`
